@@ -2,8 +2,9 @@ import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useCallback, useContext, useState } from 'react'
 import { AuthContext } from '../../../providers/AuthProvider'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import Avatar from '../NavBar/Avatar';
+
 
 const MenuDropDown = () => {
     const { user, logOut } = useContext(AuthContext)
@@ -21,25 +22,23 @@ const MenuDropDown = () => {
                 </div>
                 <div
                     onClick={toggleOpen}
-                    className='p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition'
+                    className='md:hidden block p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition'
                 >
                     <AiOutlineMenu />
-                    <div className='hidden md:block'>
-                        <Avatar></Avatar>
-                    </div>
+                </div>
+                <div className='hidden md:block'>
+                    <Avatar></Avatar>
                 </div>
             </div>
             {isOpen && (
                 <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
                     <div className='flex flex-col cursor-pointer'>
-                        <Link
-                            to='/'
-                            className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                            Home
-                        </Link>
+                        <NavLink className='p-5 nav-ex' exact to="/" activeClassName="active">Home</NavLink>
+                        <NavLink className='p-5 nav-ex' to="/about" activeClassName="active">Instructors</NavLink>
+                        <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Classes</NavLink>
+                        {user && <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
                         {user ? (
-                            <div
+                            <div 
                                 onClick={logOut}
                                 className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
                             >
@@ -47,18 +46,7 @@ const MenuDropDown = () => {
                             </div>
                         ) : (
                             <>
-                                <Link
-                                    to='/login'
-                                    className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                                >
-                                    Login
-                                </Link>
-                                <Link
-                                    to='/signup'
-                                    className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                                >
-                                    Sign Up
-                                </Link>
+                                <NavLink className='p-5 nav-ex' to="/login" activeClassName="active">Login </NavLink>
                             </>
                         )}
                     </div>

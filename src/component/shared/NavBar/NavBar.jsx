@@ -10,8 +10,9 @@ const NavBar = () => {
             <div className='py-4 border-b-[1px]'>
                 <Container>
                     <div className='flex flex-row items-center justify-between gap-3 md:gap-0'>
-                        <Link to='/'> <div className='cursor-pointer hidden md:block'><img width='70' src="https://i.ibb.co/7z504Kx/Orange-Black-Illustrated-School-of-Mu-Logo.png" alt="" /></div></Link>
+                        <Link to='/'> <div className='cursor-pointer'><img width='70' src="https://i.ibb.co/7z504Kx/Orange-Black-Illustrated-School-of-Mu-Logo.png" alt="" /></div></Link>
                         <div><NavItem></NavItem></div>
+                        <h2 className='text-xl md:hidden block -ml-24 text-green-500'>Royal Academy Of Music</h2>
                         <div><MenuDropDown></MenuDropDown></div>
                     </div>
                 </Container>
