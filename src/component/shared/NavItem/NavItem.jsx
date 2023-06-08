@@ -12,11 +12,19 @@ const NavItem = () => {
             <NavLink className='p-5 nav-ex' exact to="/" activeClassName="active">Home</NavLink>
             <NavLink className='p-5 nav-ex' to="/about" activeClassName="active">Instructors</NavLink>
             <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Classes</NavLink>
-            <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>
-            {user? 
-            <NavLink  onClick={logOut} className='p-5 nav-ex' to="/login" activeClassName="active">Logout </NavLink>
-            
-            : <NavLink className='p-5 nav-ex' to="/login" activeClassName="active">Login </NavLink>}
+
+          { user&& <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
+
+           {user&& <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
+                <div className="indicator">
+                    <span className="indicator-item badge badge-secondary">0+</span>
+                    <button className="p-2">Cart</button>
+                </div>
+            </NavLink>}
+            {user ?
+                <NavLink onClick={logOut} className='p-5 nav-ex' to="/login" activeClassName="active">Logout </NavLink>
+
+                : <NavLink className='p-5 nav-ex' to="/login" activeClassName="active">Login </NavLink>}
         </div>
     );
 };
