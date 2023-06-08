@@ -25,9 +25,9 @@ const PopularClasses = () => {
                     classes && classes.length > 0 ? <div className="pt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
 
                         {
-                            classes.map((items, index) => <PopularClassesBox
-                                key={items._id}
-                                items={items}
+                            classes.map((item, index) => <PopularClassesBox
+                                key={item._id}
+                                item={item}
                             ></PopularClassesBox>)
                         }
 

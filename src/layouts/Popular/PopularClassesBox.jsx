@@ -1,24 +1,55 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import UseCart from '../../Hooks/UseCart/UseCart';
 
-const PopularClassesBox = ({ items }) => {
-    const { name, image, price, instructor, available_seats } = items;
+const PopularClassesBox = ({ item }) => {
+    const { name, image, price, instructor, available_seats, _id } = item;
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const [, refetch] = UseCart();
 
     const handleAddToCart = item => {
-        console.log('object');
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500
-        })
-    };
+        if (user && user.email) {
+            const cartItem = { menuItemId: _id, name, image, available_seats, email: user.email }
+            fetch('http://localhost:5000/carts', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(cartItem)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.insertedId) {
+                        refetch();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
+        }
+        else {
+            Swal.fire({
+                title: 'Please Login',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login Now'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login')
+                }
+            })
+        }
+    }
 
     return (
         <div className=' ex-shadow group'>
@@ -29,11 +60,12 @@ const PopularClassesBox = ({ items }) => {
                 <h2 className='text-base text-left'>Instructor: <span className='text-green-500'>{instructor}</span></h2>
                 <h2 className='text-base text-left'>Available Seats: <span className='text-green-500'>{available_seats}</span></h2>
             </div>
-            {user ? (
-                <button onClick={() => handleAddToCart(items)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
+            <button onClick={() => handleAddToCart(item)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
+            {/* {user ? (
+                <button onClick={() => handleAddToCart(item)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
             ) : (
                 <button disabled className='btn btn-green-500 mt-10 bg-green-500 text-white opacity-50 cursor-not-allowed'>Login To Select Class</button>
-            )}
+            )} */}
         </div>
     );
 };

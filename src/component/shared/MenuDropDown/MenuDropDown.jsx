@@ -4,9 +4,11 @@ import { useCallback, useContext, useState } from 'react'
 import { AuthContext } from '../../../providers/AuthProvider'
 import { Link, NavLink } from 'react-router-dom'
 import Avatar from '../NavBar/Avatar';
+import UseCart from '../../../Hooks/UseCart/UseCart';
 
 
 const MenuDropDown = () => {
+    const[cart] = UseCart();
     const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
     const toggleOpen = useCallback(() => {
@@ -37,8 +39,17 @@ const MenuDropDown = () => {
                         <NavLink className='p-5 nav-ex' to="/about" activeClassName="active">Instructors</NavLink>
                         <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Classes</NavLink>
                         {user && <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
+
+
+                        {user && <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
+                            <div className="indicator">
+                                <span className=" badge bg-green-500 text-white">+{cart?.length || 0}</span>
+                                <button className='ml-3'>Due Payment</button>
+                            </div>
+                        </NavLink>}
+
                         {user ? (
-                            <div 
+                            <div
                                 onClick={logOut}
                                 className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
                             >

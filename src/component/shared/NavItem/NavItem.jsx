@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavItem.css';
 import { AuthContext } from '../../../providers/AuthProvider';
+import UseCart from '../../../Hooks/UseCart/UseCart';
 
 const NavItem = () => {
-
     const { user, logOut } = useContext(AuthContext);
+    const[cart] = UseCart();
 
     return (
         <div className='md:block hidden'>
@@ -15,10 +16,10 @@ const NavItem = () => {
 
           { user&& <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
 
-           {user&& <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
+           {user&&  <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
                 <div className="indicator">
-                    <span className="indicator-item badge badge-secondary">0+</span>
-                    <button className="p-2">Cart</button>
+                    <span className="indicator-item badge bg-green-500 text-white">+{cart?.length || 0}</span>
+                    <button className="p-2">Due Payment</button>
                 </div>
             </NavLink>}
             {user ?
