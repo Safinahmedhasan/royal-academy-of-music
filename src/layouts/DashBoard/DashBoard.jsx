@@ -23,14 +23,14 @@ const DashBoard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 h-full bg-green-400 text-base-content">
+                    <ul className="p-10 w-80 ex-h text-base-content">
                         {/* Sidebar content here */}
-                        <div className=' mx-auto mt-10 -ml-1 bg-white p-10 rounded-lg  drop-shadow-2xl'>
+                        <div className=' mx-auto -ml-1 bg-white p-10 rounded-lg  drop-shadow-2xl'>
                             <img className='ex-dashboard-profile' src={user?.photoURL} alt="" />
                             <h2 className='text-center mt-4 text-2xl text-green-500 font-bold'>{user?.displayName}</h2>
                         </div>
                         <div className='flex justify-center items-center '>
-                            <div className='-ml-4 mt-10 text-center'>
+                            <div className='text-center'>
 
 
                                     <Link to='/dashboard/mycart'>  <p className='text-base hover:bg-white p-5 flex w-[350px] cursor-pointer'><FaSchool className='mr-5'></FaSchool>
