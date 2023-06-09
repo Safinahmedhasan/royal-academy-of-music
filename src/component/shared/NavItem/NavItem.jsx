@@ -14,12 +14,12 @@ const NavItem = () => {
             <NavLink className='p-5 nav-ex' to="/about" activeClassName="active">Instructors</NavLink>
             <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Classes</NavLink>
 
-          { user&& <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
+          { user&& <NavLink className='p-5 nav-ex' to="/dashboard" activeClassName="active">Dashboard </NavLink>}
 
-           {user&&  <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
+           {user&&  <NavLink className='p-5 nav-ex' to="/dashboard/mycart" activeClassName="active">
                 <div className="indicator">
                     <span className="indicator-item badge bg-green-500 text-white">+{cart?.length || 0}</span>
-                    <button className="p-2">Due Payment</button>
+                    <button className="p-2">My Selected Classes</button>
                 </div>
             </NavLink>}
             {user ?

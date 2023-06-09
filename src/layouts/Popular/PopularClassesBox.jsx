@@ -13,7 +13,7 @@ const PopularClassesBox = ({ item }) => {
 
     const handleAddToCart = item => {
         if (user && user.email) {
-            const cartItem = { menuItemId: _id, name, image, available_seats, email: user.email }
+            const cartItem = { menuItemId: _id, name, price, image, available_seats, email: user.email }
             fetch('http://localhost:5000/carts', {
                 method: 'POST',
                 headers: {
@@ -61,11 +61,6 @@ const PopularClassesBox = ({ item }) => {
                 <h2 className='text-base text-left'>Available Seats: <span className='text-green-500'>{available_seats}</span></h2>
             </div>
             <button onClick={() => handleAddToCart(item)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
-            {/* {user ? (
-                <button onClick={() => handleAddToCart(item)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
-            ) : (
-                <button disabled className='btn btn-green-500 mt-10 bg-green-500 text-white opacity-50 cursor-not-allowed'>Login To Select Class</button>
-            )} */}
         </div>
     );
 };

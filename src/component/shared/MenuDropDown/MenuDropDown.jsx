@@ -33,7 +33,7 @@ const MenuDropDown = () => {
                 </div>
             </div>
             {isOpen && (
-                <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
+                <div className='absolute rounded-xl shadow-md w-[50vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
                     <div className='flex flex-col cursor-pointer'>
                         <NavLink className='p-5 nav-ex' exact to="/" activeClassName="active">Home</NavLink>
                         <NavLink className='p-5 nav-ex' to="/about" activeClassName="active">Instructors</NavLink>
@@ -44,7 +44,7 @@ const MenuDropDown = () => {
                         {user && <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
                             <div className="indicator">
                                 <span className=" badge bg-green-500 text-white">+{cart?.length || 0}</span>
-                                <button className='ml-3'>Due Payment</button>
+                                <button className='ml-3'>My Selected Classes</button>
                             </div>
                         </NavLink>}
 
