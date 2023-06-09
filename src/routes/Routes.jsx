@@ -5,6 +5,7 @@ import Login from '../Pages/Login/Login'
 import SignUp from '../Pages/SignUp/SignUp'
 import DashBoard from '../layouts/DashBoard/DashBoard'
 import MyCart from '../Pages/DashBoard/MyCart/MyCart'
+import AllUsers from '../Pages/AllUsers/AllUsers'
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: 'mycart',
         element: <MyCart></MyCart>
+      },
+      {
+        path: 'allusers',
+        element: <AllUsers></AllUsers>
       }
     ]
   }
