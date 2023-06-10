@@ -1,197 +1,194 @@
-import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
+import React, { useContext, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { FcGoogle } from 'react-icons/fc'
 import { AuthContext } from '../../providers/AuthProvider';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
-import { TbFidgetSpinner } from 'react-icons/tb';
+import toast from 'react-hot-toast';
+import { TbFidgetSpinner } from 'react-icons/tb'
 
 const SignUp = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const { loading, setLoading, signInWithGoogle, createUser } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+    const { loading, setLoading, signInWithGoogle, updateUserProfile, createUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
-  // handle Google Sign In
-  const handleGoogleSignIn = () => {
-    setLoading(true);
-    signInWithGoogle()
-      .then((result) => {
-        const { displayName, email, photoURL } = result.user;
-        const saveUser = {
-          name: displayName,
-          email: email,
-          imageUrl: photoURL,
-        };
 
-        fetch('http://localhost:5000/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(saveUser),
+
+    // Google Sign IN
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user)
+                navigate(from, { replace: true })
+            }).catch(err => {
+                setLoading(false)
+                console.log(err.message);
+                toast.error(err.message)
+
+            })
+    }
+
+
+    // handle user registration
+    const handleSubmit = event => {
+        event.preventDefault();
+        const from = event.target
+        const email = from.email.value;
+        const password = from.password.value;
+        const name = from.name.value;
+
+        // images Upload
+        const image = from.image.files[0];
+        const formData = new FormData();
+        formData.append('image', image)
+
+        const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGBB_KEY}`
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
         })
-          .then(() => {
-            setLoading(false);
-            toast.success('Success SignUp');
-            navigate(from, { replace: true });
-          })
-          .catch((error) => {
-            toast.error(error.message);
-            setLoading(false);
-          });
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        setLoading(false);
-      });
-  };
+            .then(res => res.json())
+            .then(imageData => {
+                const imageUrl = imageData.data.display_url
+                createUser(email, password)
+                    .then(result => {
+                        updateUserProfile(name, imageUrl)
+                            .then(() => {
+                                toast.success('Sign Up Success')
+                                // navigate(from, { replace: true })
+                                navigate('/')
+                            }).catch(err => {
+                                setLoading(false)
+                                console.log(err.message);
+                                toast.error(err.message)
 
-  // Handle User Register
-  const onSubmit = (data) => {
-    const { name, email, password, image } = data;
+                            })
+                        // navigate('/login')
+                    }).catch(err => {
+                        setLoading(false)
+                        console.log(err.message);
+                        toast.error(err.message)
 
-    // Your image upload logic here
+                    })
 
-    createUser(email, password)
-      .then((result) => {
-        const saveUser = {
-          name: name,
-          email: email,
-          imageUrl: '', // Replace with the URL of the uploaded image
-        };
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(err.message);
+                toast.error(err.message)
 
-        fetch('http://localhost:5000/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(saveUser),
-        })
-          .then(() => {
-            setLoading(false);
-            toast.success('Success SignUp');
-            navigate(from, { replace: true });
-          })
-          .catch((error) => {
-            toast.error(error.message);
-            setLoading(false);
-          });
-      })
-      .catch((error) => {
-        toast.error(error.message);
-        setLoading(false);
-      });
-  };
+            })
+        return
 
-  // confirm Password Matching Function
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-  const isSignUpDisabled = password !== confirmPassword;
 
-  return (
-    <div className='flex justify-center items-center min-h-screen bg-gray-100'>
-      <div className='max-w-md p-6 rounded-md bg-white'>
-        <h1 className='mb-6 text-4xl font-bold text-green-500 text-center'>Sign Up</h1>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className='space-y-6'>
-          <div className='space-y-1'>
-            <input
-              type='text'
-              id='name'
-              name='name'
-              autoComplete='off'
-              placeholder='Name'
-              className='block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none'
-              {...register('name', { required: true })}
-            />
-            {errors.name && <span className='text-red-500'>Name is required</span>}
-          </div>
-          <div className='space-y-1'>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              autoComplete='off'
-              placeholder='Email'
-              className='block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none'
-              {...register('email', { required: true })}
-            />
-            {errors.email && <span className='text-red-500'>Email is required</span>}
-          </div>
-          <div className='space-y-1'>
-            <input
-              type='password'
-              id='password'
-              name='password'
-              placeholder='Password'
-              className='block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none'
-              required
-              onChange={handlePasswordChange}
-              {...register('password', { required: true })}
-            />
-            {errors.password && <span className='text-red-500'>Password is required</span>}
-          </div>
-          <div className='space-y-1'>
-            <input
-              type='password'
-              id='confirm-password'
-              name='confirm-password'
-              placeholder='Confirm Password'
-              className='block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none'
-              required
-              onChange={handleConfirmPasswordChange}
-              {...register('confirmPassword', { required: true })}
-            />
-            {errors.confirmPassword && <span className='text-red-500'>Confirm Password is required</span>}
-          </div>
-          <div className='space-y-1'>
-            <input
-              type='file'
-              id='image'
-              name='image'
-              className='block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none'
-              required
-              {...register('image', { required: true })}
-            />
-            {errors.image && <span className='text-red-500'>Image is required</span>}
-          </div>
-          <button
-            type='submit'
-            disabled={isSignUpDisabled || loading}
-            className='flex items-center justify-center w-full px-4 py-3 text-base font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none'
-          >
-            {loading ? <TbFidgetSpinner className='animate-spin w-5 h-5 mr-3' /> : 'Sign Up'}
-          </button>
-        </form>
-        <div className='mt-4 text-center'>
-          <p className='text-sm text-gray-600'>
-            Already have an account?{' '}
-            <Link to='/signin' className='font-medium text-green-500 hover:text-green-600'>
-              Sign In
-            </Link>
-          </p>
+    }
+
+    return (
+        <div className='flex justify-center items-center min-h-screen'>
+            <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
+                <div className='mb-8 text-center'>
+                    <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
+                    <p className='text-sm text-gray-400'>Welcome to AirCNC</p>
+                </div>
+                <form
+                    onSubmit={handleSubmit}
+                    noValidate=''
+                    action=''
+                    className='space-y-6 ng-untouched ng-pristine ng-valid'
+                >
+                    <div className='space-y-4'>
+                        <div>
+                            <label htmlFor='email' className='block mb-2 text-sm'>
+                                Name
+                            </label>
+                            <input
+                                type='text'
+                                name='name'
+                                id='name'
+                                placeholder='Enter Your Name Here'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                data-temp-mail-org='0'
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='image' className='block mb-2 text-sm'>
+                                Select Image:
+                            </label>
+                            <input
+                                required
+                                type='file'
+                                id='image'
+                                name='image'
+                                accept='image/*'
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='email' className='block mb-2 text-sm'>
+                                Email address
+                            </label>
+                            <input
+                                type='email'
+                                name='email'
+                                id='email'
+                                required
+                                placeholder='Enter Your Email Here'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                data-temp-mail-org='0'
+                            />
+                        </div>
+                        <div>
+                            <div className='flex justify-between'>
+                                <label htmlFor='password' className='text-sm mb-2'>
+                                    Password
+                                </label>
+                            </div>
+                            <input
+                                type='password'
+                                name='password'
+                                id='password'
+                                required
+                                placeholder='*******'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                            />
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <button
+                            type='submit'
+                            className='bg-rose-500 w-full rounded-md py-3 text-white'
+                        >
+                            {loading ? <TbFidgetSpinner className='m-auto animate-spin' size={24} /> : 'Continue'}
+                        </button>
+                    </div>
+                </form>
+                <div className='flex items-center pt-4 space-x-1'>
+                    <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
+                    <p className='px-3 text-sm dark:text-gray-400'>
+                        Signup with social accounts
+                    </p>
+                    <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
+                </div>
+                <div onClick={handleGoogleSignIn} className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+                    <FcGoogle size={32} />
+
+                    <p>Continue with Google</p>
+                </div>
+                <p className='px-6 text-sm text-center text-gray-400'>
+                    Already have an account?{' '}
+                    <Link
+                        to='/login'
+                        className='hover:underline hover:text-rose-500 text-gray-600'
+                    >
+                        Login
+                    </Link>
+                    .
+                </p>
+            </div>
         </div>
-        <div className='flex justify-center items-center mt-4'>
-          <button
-            className='flex items-center justify-center w-full p-2 text-base text-gray-700 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none'
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-          >
-            <FcGoogle className='w-5 h-5 mr-3' />
-            {loading ? 'Signing In...' : 'Sign In with Google'}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default SignUp;

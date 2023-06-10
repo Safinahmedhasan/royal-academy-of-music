@@ -3,22 +3,22 @@ import Main from '../layouts/Main'
 import Home from '../Pages/Home/Home'
 import Login from '../Pages/Login/Login'
 import SignUp from '../Pages/SignUp/SignUp'
-import DashBoard from '../layouts/DashBoard/DashBoard'
-import MyCart from '../Pages/DashBoard/MyCart/MyCart'
-import AllUsers from '../Pages/AllUsers/AllUsers'
+import DashboardLayout from '../layouts/DashboardLayout/DashboardLayout'
+import AddClass from '../layouts/DashboardLayout/AddClass'
+
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Main />,
-    children:[
+    children: [
       {
         path: '/',
         element: <Home></Home>
-      },{
+      }, {
         path: '/login',
         element: <Login></Login>
-      },{
+      }, {
         path: '/singUp',
         element: <SignUp></SignUp>
       }
@@ -26,15 +26,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashBoard></DashBoard>,
-    children:[
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
       {
-        path: 'mycart',
-        element: <MyCart></MyCart>
-      },
-      {
-        path: 'allusers',
-        element: <AllUsers></AllUsers>
+        path: '/dashboard/add-room',
+        element: <AddClass></AddClass>
       }
     ]
   }

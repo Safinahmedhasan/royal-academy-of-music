@@ -20,6 +20,8 @@ const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
+  const [role, setRole] = useState('student')
+  console.log(role);
   const [loading, setLoading] = useState(true)
 
   const createUser = (email, password) => {
@@ -68,7 +70,7 @@ const AuthProvider = ({ children }) => {
         })
       }
       else{
-        localStorage.removeItem('access-token')
+        localStorage.removeItem('access-token') 
       }
 
       setLoading(false)
@@ -78,10 +80,22 @@ const AuthProvider = ({ children }) => {
     }
   }, [])
 
+  useEffect(() => {
+    if(user?.email){
+      fetch(`http://localhost:5000/users/${user?.email}`)
+      .then(res => res.json())
+      .then(data => {
+        setRole(data.role);
+      })
+    }
+  },[user?.email])
+
   const authInfo = {
     user,
     loading,
+    role,
     setLoading,
+    setRole,
     createUser,
     signIn,
     signInWithGoogle,
