@@ -10,6 +10,7 @@ import AllUsers from '../Pages/AllUsers/AllUsers'
 import AllClassCard from '../layouts/AllClassCard/AllClassCard'
 import AdminInfo from '../Profile/AdminInfo'
 import InstructorMyClass from '../layouts/InstructorMyClass/InstructorMyClass'
+import UpdateClasses from '../layouts/UpdateClasses/UpdateClasses'
 
 
 export const router = createBrowserRouter([
@@ -56,6 +57,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/InstructorMyClass',
         element: <InstructorMyClass></InstructorMyClass>
+      },
+      {
+        path: '/dashboard/updateclasses/:id',
+        element: <UpdateClasses></UpdateClasses>,
+        loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
       }
     ]
   }

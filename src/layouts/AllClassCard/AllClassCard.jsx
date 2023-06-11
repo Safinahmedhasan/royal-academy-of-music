@@ -17,7 +17,7 @@ const AllClassCard = () => {
     }, [])
 
 
-    const handleMakeDeny = user => {
+    const handleMakeDenyf = user => {
         Swal.fire({
             title: 'Deny',
             input: 'text',
@@ -36,7 +36,7 @@ const AllClassCard = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                     
+
                     })
             },
             allowOutsideClick: () => !Swal.isLoading()
@@ -47,6 +47,25 @@ const AllClassCard = () => {
                 })
             }
         })
+    }
+
+
+    const handleMakeDeny = user => {
+        fetch(`http://localhost:5000/class/deny/${user._id}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.matchedCount) {
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'success',
+                        title: 'is an Admin Now',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
     }
 
     const handleMakeApprove = user => {
@@ -67,41 +86,6 @@ const AllClassCard = () => {
             })
     }
 
-
-
-
-
-    const handleFeedback = user => {
-        Swal.fire({
-            title: 'Deny',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'FeedBack',
-            showLoaderOnConfirm: true,
-            preConfirm: (input) => {
-                console.log(input);
-                fetch(`http://localhost:5000/class/feedback/${user._id}`, {
-                    method: 'PATCH',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify(input)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        return data
-                    })
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'update',
-                })
-            }
-        })
-    }
 
 
 
