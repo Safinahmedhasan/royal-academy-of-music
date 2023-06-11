@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
 import axios from 'axios'
+import { getRole } from '../Api/Auth'
 
 export const AuthContext = createContext(null)
 
@@ -20,9 +21,16 @@ const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [role, setRole] = useState('student')
-  console.log(role);
+  const [role, setRole] = useState(null)
+  // console.log(role);
   const [loading, setLoading] = useState(true)
+
+
+  useEffect(() => {
+    if(user) {
+      getRole(user.email).then(data=>setRole(data))
+    }
+  },[user])
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -60,18 +68,16 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
-      console.log('current user', currentUser)
 
-      if(currentUser){
-        axios.post('http://localhost:5000/jwt', {email: currentUser.email})
-        .then(data => {
-          console.log(data.data.token);
-          localStorage.setItem('access-token', data.data.token)
-        })
-      }
-      else{
-        localStorage.removeItem('access-token') 
-      }
+      // if(currentUser){
+      //   axios.post('http://localhost:5000/jwt', {email: currentUser.email})
+      //   .then(data => {
+      //     localStorage.setItem('access-token', data.data.token)
+      //   })
+      // }
+      // else{
+      //   localStorage.removeItem('access-token') 
+      // }
 
       setLoading(false)
     })
@@ -80,15 +86,15 @@ const AuthProvider = ({ children }) => {
     }
   }, [])
 
-  useEffect(() => {
-    if(user?.email){
-      fetch(`http://localhost:5000/users/${user?.email}`)
-      .then(res => res.json())
-      .then(data => {
-        setRole(data.role);
-      })
-    }
-  },[user?.email])
+  // useEffect(() => {
+  //   if(user?.email){
+  //     fetch(`http://localhost:5000/users/${user?.email}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setRole(data.role);
+  //     })
+  //   }
+  // },[user?.email])
 
   const authInfo = {
     user,

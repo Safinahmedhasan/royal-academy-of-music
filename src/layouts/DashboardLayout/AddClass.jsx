@@ -3,6 +3,7 @@ import AddClassForm from '../Form/AddClassForm';
 import { imageUpload } from './utils';
 import { AuthContext } from '../../providers/AuthProvider';
 import { addClass } from './Class';
+import { toast } from 'react-hot-toast';
 
 const AddClass = () => {
     const [uploadButtonText, setUploadButtonText] = useState('Upload Image')
@@ -30,6 +31,7 @@ const AddClass = () => {
             };
 
             addClass(classData).then(data=>console.log(data)).catch(err => console.log(err))   
+            toast.success('Class Add Success')
             
         })
         .catch(error => {

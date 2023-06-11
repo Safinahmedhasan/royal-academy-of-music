@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import UseCart from '../../Hooks/UseCart/UseCart';
 
 const PopularClassesBox = ({ item }) => {
-    const { name, image, price, instructor, available_seats, _id } = item;
+    const { name, image, price, Instructor, seats, _id } = item;
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
@@ -13,7 +13,7 @@ const PopularClassesBox = ({ item }) => {
 
     const handleAddToCart = item => {
         if (user && user.email) {
-            const cartItem = { menuItemId: _id, name, price, image, available_seats, email: user.email }
+            const cartItem = { menuItemId: _id, name, price, image, seats, email: user.email }
             fetch('http://localhost:5000/carts', {
                 method: 'POST',
                 headers: {
@@ -57,8 +57,8 @@ const PopularClassesBox = ({ item }) => {
                 <img md:width='300' height='100' className='rounded-lg transition group-hover:scale-105' src={image} alt="" />
                 <h2 className='text-xl text-green-500 font-bold'>{name}</h2>
                 <h2 className='text-base text-left'>Price: <span className='text-green-500'>{price}</span></h2>
-                <h2 className='text-base text-left'>Instructor: <span className='text-green-500'>{instructor}</span></h2>
-                <h2 className='text-base text-left'>Available Seats: <span className='text-green-500'>{available_seats}</span></h2>
+                <h2 className='text-base text-left'>Instructor: <span className='text-green-500'>{Instructor}</span></h2>
+                <h2 className='text-base text-left'>Available Seats: <span className='text-green-500'>{seats}</span></h2>
             </div>
             <button onClick={() => handleAddToCart(item)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
         </div>

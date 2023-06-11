@@ -7,7 +7,7 @@ const PopularClasses = () => {
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/class')
+        fetch(`${import.meta.env.VITE_API_URL}/class`)
             .then(res => res.json())
             .then(data => {
                 setClasses(data);

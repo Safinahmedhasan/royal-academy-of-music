@@ -3,6 +3,7 @@ import React from 'react';
 import Swal from 'sweetalert2';
 
 const AllUsers = () => {
+    // DD
 
     // DD
 
@@ -29,6 +30,25 @@ const AllUsers = () => {
                 }
             })
     }
+    
+    const handleMakeInstructor = user => {
+        fetch(`http://localhost:5000/users/Instructor/${user._id}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${user.name} is Instructor`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+    }
 
     return (
         <div>
@@ -43,6 +63,8 @@ const AllUsers = () => {
                             </th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th></th>
+                            <th></th>
                             <th>Role</th>
                         </tr>
                     </thead>
@@ -56,11 +78,11 @@ const AllUsers = () => {
                                 </th>
                                 <td>
                                     <div className="flex items-center space-x-3">
-                                        <div className="avatar">
+                                        {/* <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
                                                 <img src={user.imageUrl} alt="Avatar Tailwind CSS Component" />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div>
                                             <div className="font-bold">{user.name}</div>
                                         </div>
@@ -70,6 +92,16 @@ const AllUsers = () => {
                                     {user.email}
                                     <br />
                                 </td>
+                                <td>
+                                    <span className='bg-red-500 px-5 py-2 text-white rounded-xl'>
+                                        {user.role}
+                                    </span>
+                                </td>
+                                <td>{
+                                    user.role === 'instructor' ? 'Instructor' : <button onClick={() => handleMakeInstructor(user)} className='bg-green-500 hover:bg-green-700 px-5 py-2 text-white rounded-xl'>
+                                        Make Instructor
+                                    </button>
+                                }</td>
                                 <td>{
                                     user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className='bg-green-500 hover:bg-green-700 px-5 py-2 text-white rounded-xl'>
                                         Make Admin

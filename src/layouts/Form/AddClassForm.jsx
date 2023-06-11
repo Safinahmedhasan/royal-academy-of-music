@@ -20,7 +20,7 @@ const AddClassForm = ({
                 Class name
               </label>
               <input
-                className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
+                className='w-full px-4 py-3 text-gray-800 border border-green-300 focus:outline-green-500 rounded-md '
                 name='name'
                 id='name'
                 type='text'
@@ -35,7 +35,7 @@ const AddClassForm = ({
               </label> */}
               {/* <select
                 required
-                className='w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md'
+                className='w-full px-4 py-3 border-green-300 focus:outline-green-500 rounded-md'
                 name='category'
               >
                 {categories.map(category => (
@@ -59,7 +59,7 @@ const AddClassForm = ({
                 Instructor name
               </label>
               <input
-                className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
+                className='w-full px-4 py-3 text-gray-800 border border-green-300 focus:outline-green-500 rounded-md '
                 name='Instructor'
                 id='Instructor'
                 type='text'
@@ -81,7 +81,7 @@ const AddClassForm = ({
                       accept='image/*'
                       hidden
                     />
-                    <div className='bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500'>
+                    <div className='bg-green-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-green-500'>
                       {uploadButtonText}
                     </div>
                   </label>
@@ -94,7 +94,7 @@ const AddClassForm = ({
                   Price
                 </label>
                 <input
-                  className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
+                  className='w-full px-4 py-3 text-gray-800 border border-green-300 focus:outline-green-500 rounded-md '
                   name='price'
                   id='price'
                   type='number'
@@ -108,7 +108,7 @@ const AddClassForm = ({
                   Available seats
                 </label>
                 <input
-                  className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
+                  className='w-full px-4 py-3 text-gray-800 border border-green-300 focus:outline-green-500 rounded-md '
                   name='seats'
                   id='seats'
                   type='number'
@@ -127,7 +127,7 @@ const AddClassForm = ({
 
               <input
                 id='email'
-                className='block rounded-md focus:rose-300 w-full px-4 py-3 text-gray-800  border border-rose-300 focus:outline-rose-500 '
+                className='block rounded-md focus:green-300 w-full px-4 py-3 text-gray-800  border border-green-300 focus:outline-green-500 '
                 name='email'
                 type="email"
               ></input>
@@ -137,7 +137,7 @@ const AddClassForm = ({
 
         <button
           type='submit'
-          className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500'
+          className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-green-500'
         >
           {/* {loading ? (
             <TbFidgetSpinner className='m-auto animate-spin' size={24} />

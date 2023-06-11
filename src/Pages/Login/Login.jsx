@@ -5,6 +5,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { useForm } from 'react-hook-form';
+import { saveUser } from '../../Api/Auth';
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -32,6 +33,7 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         toast.success("Success Login");
+        // saveUser(result.user)
         navigate(from, { replace: true });
         setLoading(false)
       })
