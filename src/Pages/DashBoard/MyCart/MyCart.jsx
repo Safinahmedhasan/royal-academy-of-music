@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import UseCart from '../../../Hooks/UseCart/UseCart';
 import { FaTrashAlt } from 'react-icons/fa';
+import { MdOutlinePayment } from 'react-icons/md';
 import Swal from 'sweetalert2';
 
 const MyCart = () => {
   const [cart, refetch] = UseCart();
-  console.log(cart);
 
   useEffect(() => {
     refetch();
@@ -60,7 +60,8 @@ const MyCart = () => {
                 </th>
                 <th>Class</th>
                 <th>Price</th>
-                <th></th>
+                <th>Remove</th>
+                <th>Payment</th>
               </tr>
             </thead>
             <tbody>
@@ -87,6 +88,12 @@ const MyCart = () => {
                     <button onClick={() => handleDelete(item)} className='btn btn-ghost btn-xs bg-red-500 text-white'>
                       <FaTrashAlt />
                       DELETE
+                    </button>
+                  </td>
+                  <td>
+                    <button className='btn btn-ghost btn-xs bg-blue-500 text-white'>
+                      <MdOutlinePayment />
+                      Pay
                     </button>
                   </td>
                 </tr>

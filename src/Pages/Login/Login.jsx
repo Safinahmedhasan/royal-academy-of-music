@@ -31,17 +31,15 @@ const Login = () => {
   // handle Google Sign In
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then((result) => {
-        toast.success("Success Login");
-        // saveUser(result.user)
-        navigate(from, { replace: true });
+      .then(result => {
+        navigate(from, { replace: true })
+      }).catch(err => {
         setLoading(false)
+        console.log(err.message);
+        toast.error(err.message)
+
       })
-      .catch((err) => {
-        toast.error(err.message);
-        setLoading(false);
-      });
-  };
+  }
 
   return (
     <div className='flex justify-center items-center min-h-screen'>
@@ -87,7 +85,7 @@ const Login = () => {
 
           <div>
             <button type='submit' className='bg-green-500 w-full rounded-md py-3 text-white'>
-              {loading ? <TbFidgetSpinner className='m-auto animate-spin' size={24} /> : 'Continue'}
+              {loading ? <TbFidgetSpinner className='m-auto animate-spin' size={24} /> : 'Login'}
             </button>
           </div>
         </form>

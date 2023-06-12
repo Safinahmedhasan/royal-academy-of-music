@@ -11,6 +11,8 @@ import AllClassCard from '../layouts/AllClassCard/AllClassCard'
 import AdminInfo from '../Profile/AdminInfo'
 import InstructorMyClass from '../layouts/InstructorMyClass/InstructorMyClass'
 import UpdateClasses from '../layouts/UpdateClasses/UpdateClasses'
+import AllPupolarClassSection from '../layouts/Popular/AllPupolarClassSection'
+import AllPopularInstructorSection from '../layouts/Popular/AllPopularInstructorSection'
 
 
 export const router = createBrowserRouter([
@@ -24,9 +26,18 @@ export const router = createBrowserRouter([
       }, {
         path: '/login',
         element: <Login></Login>
-      }, {
+      }, 
+      {
         path: '/singUp',
         element: <SignUp></SignUp>
+      },
+      {
+        path: '/AllPopularClsses',
+        element: <AllPupolarClassSection></AllPupolarClassSection>
+      },
+      {
+        path: '/AllPopularInstructorSection',
+        element: <AllPopularInstructorSection></AllPopularInstructorSection>
       }
     ],
   },

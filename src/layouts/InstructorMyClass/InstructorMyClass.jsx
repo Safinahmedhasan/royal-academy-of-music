@@ -7,7 +7,6 @@ const InstructorMyClass = () => {
     const { user } = useContext(AuthContext);
 
     const [myClass, setMyClass] = useState([])
-    console.log(myClass);
  
 
 
@@ -33,9 +32,11 @@ const InstructorMyClass = () => {
                                             </th>
                                             <th>Class Name</th>
                                             <th>Price</th>
-                                            <th></th>
+                                            <th>Seats</th>
+                                            <th>Update</th>
                                             <th>Status</th>
-                                            <th>Status</th>
+                                            <th>Enrolled</th>
+                                            <th>Feedback</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,7 +61,7 @@ const InstructorMyClass = () => {
                                                 </td>
 
                                                 <td>
-                                                    {classe.price}
+                                                    {classe.seats}
                                                     <br />
                                                 </td>
                                                 <td>
@@ -71,6 +72,18 @@ const InstructorMyClass = () => {
                                                     <p className=' p-2 bg-blue-500 text-center text-white rounded-xl'> {
                                                         classe.status ? classe.status : <p className=' text-center text-white  rounded-xl'>Pending</p>
                                                     }</p>
+                                                    <br />
+                                                </td>
+                                                <td>
+                                                    <p className=' p-2 bg-purple-500 text-center text-white rounded-xl'>
+                                                       <p className=' text-center text-white  rounded-xl'>34</p>
+                                                    </p>
+                                                    <br />
+                                                </td>
+                                                <td>
+                                                    <p className=' p-2 bg-red-500 text-center text-white rounded-xl'>
+                                                       <p className=' text-center text-white  rounded-xl'>FeedBack</p>
+                                                    </p>
                                                     <br />
                                                 </td>
                                             </tr>

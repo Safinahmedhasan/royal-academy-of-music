@@ -3,10 +3,11 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UseCart from '../../Hooks/UseCart/UseCart';
+import { Fade } from 'react-awesome-reveal';
 
 const PopularClassesBox = ({ item }) => {
     const { name, image, price, Instructor, seats, _id } = item;
-    const { user } = useContext(AuthContext);
+    const { user, role } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const [, refetch] = UseCart();
@@ -14,7 +15,7 @@ const PopularClassesBox = ({ item }) => {
     const handleAddToCart = item => {
         if (user && user.email) {
             const cartItem = { menuItemId: _id, name, price, image, seats, email: user.email }
-            fetch('http://localhost:5000/carts', {
+            fetch(`${import.meta.env.VITE_API_URL}/carts`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -52,15 +53,28 @@ const PopularClassesBox = ({ item }) => {
     }
 
     return (
-        <div className=' ex-shadow group'>
-            <div className=' hover:drop-shadow-2xl space-y-2'>
-                <img md:width='300' height='100' className='rounded-lg transition group-hover:scale-105' src={image} alt="" />
-                <h2 className='text-xl text-green-500 font-bold'>{name}</h2>
-                <h2 className='text-base text-left'>Price: <span className='text-green-500'>{price}</span></h2>
-                <h2 className='text-base text-left'>Instructor: <span className='text-green-500'>{Instructor}</span></h2>
-                <h2 className='text-base text-left'>Available Seats: <span className='text-green-500'>{seats}</span></h2>
-            </div>
-            <button onClick={() => handleAddToCart(item)} className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'>Select Class</button>
+
+        <div>
+            <Fade direction="up" delay={500} triggerOnce>
+                <div className="card card-compact w-96 bg-base-100 shadow-xl">
+                    <figure><img src={image} className='h-80 w-96' alt="Instructor" /></figure>
+                    <div className="card-body">
+                        <h2 className="card-title">{name}</h2>
+                        <p>Price: ${price}</p>
+                        <p>Instructor Name:{Instructor}</p>
+                        <p>Seats:{seats}</p>
+                        <div className="card-actions justify-end">
+                            <button
+                                disabled={role === 'admin' || role === 'instructor'}
+                                onClick={() => handleAddToCart(item)}
+                                className='btn btn-green-500 mt-10 bg-green-500 text-white hover:text-slate-700'
+                            >
+                                Select Class
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Fade>
         </div>
     );
 };

@@ -1,49 +1,57 @@
-import React, { useContext, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
+import React, { useContext, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../providers/AuthProvider';
 import toast from 'react-hot-toast';
-import { TbFidgetSpinner } from 'react-icons/tb'
+import { TbFidgetSpinner } from 'react-icons/tb';
 import { saveUser } from '../../Api/Auth';
 
 const SignUp = () => {
-
   const { loading, setLoading, signInWithGoogle, updateUserProfile, createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
+  const handlePasswordChange = event => {
+    const password = event.target.value;
+    const confirmPassword = event.target.form.confirmPassword.value;
+    setPasswordMatch(password === confirmPassword);
+  };
 
-  // Google Sign IN
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then(result => {
-        saveUser(result.user)
-        navigate(from, { replace: true })
-      }).catch(err => {
-        setLoading(false)
-        console.log(err.message);
-        toast.error(err.message)
-
+        toast.success('Success Login');
+        saveUser(result.user);
+        navigate(from, { replace: true });
+        setLoading(false);
       })
-  }
+      .catch(err => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  };
 
-
-  // handle user registration
   const handleSubmit = event => {
     event.preventDefault();
-    const from = event.target
+    const from = event.target;
     const email = from.email.value;
     const password = from.password.value;
     const name = from.name.value;
+    const confirmPassword = from.confirmPassword.value;
 
-    // images Upload
+    if (password !== confirmPassword) {
+      setPasswordMatch(false);
+      return;
+    }
+
     const image = from.image.files[0];
     const formData = new FormData();
-    formData.append('image', image)
+    formData.append('image', image);
 
-    const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGBB_KEY}`
+    const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGBB_KEY}`;
 
     fetch(url, {
       method: 'POST',
@@ -51,40 +59,34 @@ const SignUp = () => {
     })
       .then(res => res.json())
       .then(imageData => {
-        const imageUrl = imageData.data.display_url
+        const imageUrl = imageData.data.display_url;
         createUser(email, password)
           .then(result => {
             updateUserProfile(name, imageUrl)
               .then(() => {
-                toast.success('Sign Up Success')
-                saveUser(result.user)
-                navigate(from, { replace: true })
-                navigate('/')
-              }).catch(err => {
-                setLoading(false)
-                console.log(err.message);
-                toast.error(err.message)
-
+                toast.success('Sign Up Success');
+                saveUser(result.user);
+                navigate(from, { replace: true });
+                navigate('/');
               })
-            // navigate('/login')
-          }).catch(err => {
-            setLoading(false)
-            console.log(err.message);
-            toast.error(err.message)
-
+              .catch(err => {
+                setLoading(false);
+                console.log(err.message);
+                toast.error(err.message);
+              });
           })
-
+          .catch(err => {
+            setLoading(false);
+            console.log(err.message);
+            toast.error(err.message);
+          });
       })
       .catch(err => {
-        setLoading(false)
+        setLoading(false);
         console.log(err.message);
-        toast.error(err.message)
-
-      })
-    return
-
-
-  }
+        toast.error(err.message);
+      });
+  };
 
   return (
     <div className='flex justify-center items-center min-h-screen'>
@@ -101,7 +103,7 @@ const SignUp = () => {
         >
           <div className='space-y-4'>
             <div>
-              <label htmlFor='email' className='block mb-2 text-sm'>
+              <label htmlFor='name' className='block mb-2 text-sm'>
                 Name
               </label>
               <input
@@ -110,7 +112,6 @@ const SignUp = () => {
                 id='name'
                 placeholder='Enter Your Name Here'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
               />
             </div>
             <div>
@@ -136,15 +137,12 @@ const SignUp = () => {
                 required
                 placeholder='Enter Your Email Here'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
               />
             </div>
             <div>
-              <div className='flex justify-between'>
-                <label htmlFor='password' className='text-sm mb-2'>
-                  Password
-                </label>
-              </div>
+              <label htmlFor='password' className='block mb-2 text-sm'>
+                Password
+              </label>
               <input
                 type='password'
                 name='password'
@@ -152,17 +150,39 @@ const SignUp = () => {
                 required
                 placeholder='*******'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
+                onChange={handlePasswordChange}
               />
             </div>
+            <div>
+              <label htmlFor='confirmPassword' className='block mb-2 text-sm'>
+                Confirm Password
+              </label>
+              <input
+                type='password'
+                name='confirmPassword'
+                id='confirmPassword'
+                required
+                placeholder='*******'
+                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900'
+                onChange={handlePasswordChange}
+              />
+              {!passwordMatch && (
+                <p className='text-red-500 text-xs mt-1'>Passwords do not match</p>
+              )}
+            </div>
           </div>
-
 
           <div>
             <button
               type='submit'
               className='bg-green-500 w-full rounded-md py-3 text-white'
+              disabled={!passwordMatch || loading}
             >
-              {loading ? <TbFidgetSpinner className='m-auto animate-spin' size={24} /> : 'Continue'}
+              {loading ? (
+                <TbFidgetSpinner className='m-auto animate-spin' size={24} />
+              ) : (
+                'Sign Up'
+              )}
             </button>
           </div>
         </form>
@@ -173,9 +193,11 @@ const SignUp = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div onClick={handleGoogleSignIn} className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+        <div
+          onClick={handleGoogleSignIn}
+          className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
+        >
           <FcGoogle size={32} />
-
           <p>Continue with Google</p>
         </div>
         <p className='px-6 text-sm text-center text-gray-400'>

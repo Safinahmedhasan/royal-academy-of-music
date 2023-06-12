@@ -45,8 +45,8 @@ const UpdateClasses = () => {
 
     return (
         <div>
-            update {_id}
             <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
+                <p className='text-2xl mb-32'>Update Class</p>
                 <form onSubmit={handleSubmit}>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
                         <div className='space-y-6'>

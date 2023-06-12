@@ -13,10 +13,10 @@ const NavItem = () => {
             <NavLink className="p-5 nav-ex" exact to="/" activeClassName="active">
                 Home
             </NavLink>
-            <NavLink className="p-5 nav-ex" to="/about" activeClassName="active">
+            <NavLink className="p-5 nav-ex" to="/AllPopularInstructorSection" activeClassName="active">
                 Instructors
             </NavLink>
-            <NavLink className="p-5 nav-ex" to="/contact" activeClassName="active">
+            <NavLink className="p-5 nav-ex" to="/AllPopularClsses" activeClassName="active">
                 Classes
             </NavLink>
 
@@ -27,7 +27,7 @@ const NavItem = () => {
                     </NavLink>
 
                     {role !== 'admin' && role !== 'instructor' && (
-                        <NavLink className="p-5 nav-ex" to="/dashboard/mycart" activeClassName="active">
+                        <NavLink className="p-5 nav-ex" to="/dashboard/myClasses" activeClassName="active">
                             <div className="indicator">
                                 <span className="indicator-item badge bg-green-500 text-white">+{cart?.length || 0}</span>
                                 <button className="p-2">My Selected Classes</button>

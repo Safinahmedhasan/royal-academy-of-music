@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 // import { DateRange } from 'react-date-range'
 import { TbFidgetSpinner } from 'react-icons/tb'
+import { AuthContext } from '../../providers/AuthProvider'
 // import { categories } from '../Categories/categoriesData'
 const AddClassForm = ({
   handleSubmit,
@@ -10,6 +11,9 @@ const AddClassForm = ({
   handleImageChange,
   uploadButtonText,
 }) => {
+
+
+  const { user } = useContext(AuthContext)
   return (
     <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
       <form onSubmit={handleSubmit}>
@@ -59,6 +63,8 @@ const AddClassForm = ({
                 Instructor name
               </label>
               <input
+              readOnly
+                defaultValue={user?.displayName}
                 className='w-full px-4 py-3 text-gray-800 border border-green-300 focus:outline-green-500 rounded-md '
                 name='Instructor'
                 id='Instructor'
@@ -126,6 +132,8 @@ const AddClassForm = ({
 
 
               <input
+                readOnly
+                defaultValue={user?.email}
                 id='email'
                 className='block rounded-md focus:green-300 w-full px-4 py-3 text-gray-800  border border-green-300 focus:outline-green-500 '
                 name='email'

@@ -36,8 +36,8 @@ const MenuDropDown = () => {
                 <div className='absolute rounded-xl shadow-md w-[50vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
                     <div className='flex flex-col cursor-pointer'>
                         <NavLink className='p-5 nav-ex' exact to="/" activeClassName="active">Home</NavLink>
-                        <NavLink className='p-5 nav-ex' to="/about" activeClassName="active">Instructors</NavLink>
-                        <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Classes</NavLink>
+                        <NavLink className='p-5 nav-ex' to="/AllPopularInstructorSection" activeClassName="active">Instructors</NavLink>
+                        <NavLink className='p-5 nav-ex' to="/AllPopularClsses" activeClassName="active">Classes</NavLink>
                         {user && <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
 
 
