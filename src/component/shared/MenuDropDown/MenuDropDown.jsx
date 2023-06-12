@@ -8,8 +8,8 @@ import UseCart from '../../../Hooks/UseCart/UseCart';
 
 
 const MenuDropDown = () => {
-    const[cart] = UseCart();
-    const { user, logOut } = useContext(AuthContext)
+    const [cart] = UseCart();
+    const { user, logOut, role } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
     const toggleOpen = useCallback(() => {
         setIsOpen(value => !value)
@@ -41,12 +41,14 @@ const MenuDropDown = () => {
                         {user && <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
 
 
-                        {user && <NavLink className='p-5 nav-ex' to="/" activeClassName="active">
-                            <div className="indicator">
-                                <span className=" badge bg-green-500 text-white">+{cart?.length || 0}</span>
-                                <button className='ml-3'>My Selected Classes</button>
-                            </div>
-                        </NavLink>}
+                        {role !== 'admin' && role !== 'instructor' && (
+                            <NavLink className="p-5 nav-ex" to="/dashboard/myClasses" activeClassName="active">
+                                <div className="indicator">
+                                    <span className="indicator-item badge bg-green-500 text-white">+{cart?.length || 0}</span>
+                                    <button className="p-2">My Selected Classes</button>
+                                </div>
+                            </NavLink>
+                        )}
 
                         {user ? (
                             <div

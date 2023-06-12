@@ -13,6 +13,8 @@ import InstructorMyClass from '../layouts/InstructorMyClass/InstructorMyClass'
 import UpdateClasses from '../layouts/UpdateClasses/UpdateClasses'
 import AllPupolarClassSection from '../layouts/Popular/AllPupolarClassSection'
 import AllPopularInstructorSection from '../layouts/Popular/AllPopularInstructorSection'
+import ErrorPage from '../component/ErrorPage/ErrorPage'
+import FeedBack from '../component/FeedBack/FeedBack'
 
 
 export const router = createBrowserRouter([
@@ -26,7 +28,7 @@ export const router = createBrowserRouter([
       }, {
         path: '/login',
         element: <Login></Login>
-      }, 
+      },
       {
         path: '/singUp',
         element: <SignUp></SignUp>
@@ -38,8 +40,13 @@ export const router = createBrowserRouter([
       {
         path: '/AllPopularInstructorSection',
         element: <AllPopularInstructorSection></AllPopularInstructorSection>
-      }
+      },
     ],
+
+  },
+  {
+    path: '*',
+    element: <ErrorPage></ErrorPage>
   },
   {
     path: '/dashboard',
@@ -72,6 +79,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/updateclasses/:id',
         element: <UpdateClasses></UpdateClasses>,
+        loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
+      },
+      {
+        path: '/dashboard/feedback/:id',
+        element: <FeedBack></FeedBack>,
         loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
       }
     ]

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const AllClassCard = () => {
 
     const [allClass, setAllClass] = useState([]);
-    console.log(allClass);
 
 
     useEffect(() => {
@@ -159,8 +159,9 @@ const AllClassCard = () => {
                                     </button>
                                 </td>
                                 <td>
-                                    <button className='btn'>Feedback</button>
+                                <Link to={`/dashboard/feedback/${allClass._id}`}><button className='bg-yellow-500 text-white px-7 py-2 -mt-16 rounded-lg'>feedback</button></Link>
                                 </td>
+
                             </tr>)
                         }
 
