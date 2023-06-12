@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const AllClassCard = () => {
 
     const [allClass, setAllClass] = useState([]);
+    const feedback = useLoaderData();
 
 
     useEffect(() => {

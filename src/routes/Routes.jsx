@@ -15,6 +15,7 @@ import AllPupolarClassSection from '../layouts/Popular/AllPupolarClassSection'
 import AllPopularInstructorSection from '../layouts/Popular/AllPopularInstructorSection'
 import ErrorPage from '../component/ErrorPage/ErrorPage'
 import FeedBack from '../component/FeedBack/FeedBack'
+import Payment from '../component/Payment/Payment'
 
 
 export const router = createBrowserRouter([
@@ -85,6 +86,11 @@ export const router = createBrowserRouter([
         path: '/dashboard/feedback/:id',
         element: <FeedBack></FeedBack>,
         loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
+      },
+      {
+        path: '/dashboard/payment/:id',
+        element: <Payment></Payment>,
+        loader: ({ params }) => fetch(`http://localhost:5000/carts/${params.id}`)
       }
     ]
   }

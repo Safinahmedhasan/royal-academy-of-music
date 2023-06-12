@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import UseCart from '../../../Hooks/UseCart/UseCart';
 import { FaTrashAlt } from 'react-icons/fa';
 import { MdOutlinePayment } from 'react-icons/md';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const MyCart = () => {
   const [cart, refetch] = UseCart();
+
 
   useEffect(() => {
     refetch();
@@ -91,10 +93,12 @@ const MyCart = () => {
                     </button>
                   </td>
                   <td>
-                    <button className='btn btn-ghost btn-xs bg-blue-500 text-white'>
-                      <MdOutlinePayment />
-                      Pay
-                    </button>
+                    <Link to={`/dashboard/payment/${item._id}`}>
+                      <button className='btn btn-ghost btn-xs bg-blue-500 text-white'>
+                        <MdOutlinePayment />
+                        Pay
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

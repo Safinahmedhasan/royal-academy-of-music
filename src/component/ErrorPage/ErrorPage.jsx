@@ -15,9 +15,10 @@ const ErrorPage = () => {
             {user && role === 'admin' && <div>
                 <div className='flex flex-col justify-center items-center'>
                     <img src="https://i.ibb.co/cJYnTwf/404-error-dribbble-800x600.gif" alt="" />
-                   <Link to='/dashboard'> <button className='btn bg-green-500'>BACK TO HOME</button></Link>
+                   <Link to='/dashboard'> <button className='btn bg-green-500'>BACK TO ADMIN DASHBOARD</button></Link>
                 </div>
             </div>}
+            {/* TODO */}
 
 
         </div>

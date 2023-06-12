@@ -7,7 +7,7 @@ const InstructorMyClass = () => {
     const { user } = useContext(AuthContext);
 
     const [myClass, setMyClass] = useState([])
- 
+
 
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const InstructorMyClass = () => {
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div className='font-bold'>{classe.name}</div>
+                                                            <div className='font-bold'>{classe.feedback ? classe.feedback : 'No FeedBack'}</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -65,7 +65,7 @@ const InstructorMyClass = () => {
                                                     <br />
                                                 </td>
                                                 <td>
-                                                <Link to={`/dashboard/updateclasses/${classe._id}`}><button className='bg-yellow-500 text-white px-7 py-2 -mt-16 rounded-lg'>Update</button></Link>
+                                                    <Link to={`/dashboard/updateclasses/${classe._id}`}><button className='bg-yellow-500 text-white px-7 py-2 -mt-16 rounded-lg'>Update</button></Link>
                                                     <br />
                                                 </td>
                                                 <td className=''>
@@ -76,13 +76,15 @@ const InstructorMyClass = () => {
                                                 </td>
                                                 <td>
                                                     <p className=' p-2 bg-purple-500 text-center text-white rounded-xl'>
-                                                       <p className=' text-center text-white  rounded-xl'>34</p>
+                                                        <p className=' text-center text-white  rounded-xl'>34</p>
                                                     </p>
                                                     <br />
                                                 </td>
                                                 <td>
-                                                    <p className=' p-2 bg-red-500 text-center text-white rounded-xl'>
-                                                       <p className=' text-center text-white  rounded-xl'>FeedBack</p>
+                                                    <p className=' p-2 rounded-xl'>
+                                                        <p className={`text-center rounded-xl ${classe.feedback ? '' : 'text-red-500'}`}>
+                                                            {classe.feedback ? classe.feedback : 'No Feedback'}
+                                                        </p>
                                                     </p>
                                                     <br />
                                                 </td>
