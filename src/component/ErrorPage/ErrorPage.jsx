@@ -19,6 +19,7 @@ const ErrorPage = () => {
                 </div>
             </div>}
             {/* TODO */}
+            {/* intructor ta kora hoyni */}
 
 
         </div>
