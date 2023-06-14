@@ -38,7 +38,7 @@ const MenuDropDown = () => {
                         <NavLink className='p-5 nav-ex' exact to="/" activeClassName="active">Home</NavLink>
                         <NavLink className='p-5 nav-ex' to="/AllPopularInstructorSection" activeClassName="active">Instructors</NavLink>
                         <NavLink className='p-5 nav-ex' to="/AllPopularClsses" activeClassName="active">Classes</NavLink>
-                        {user && <NavLink className='p-5 nav-ex' to="/contact" activeClassName="active">Dashboard </NavLink>}
+                        {user && <NavLink className='p-5 nav-ex' to="/dashboard" activeClassName="active">Dashboard </NavLink>}
 
 
                         {role !== 'admin' && role !== 'instructor' && (
