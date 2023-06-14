@@ -30,7 +30,8 @@ const PaymentHistory = () => {
                                         </th>
                                         <th>Class Name</th>
                                         <th>Price</th>
-                                        <th>Seats</th>
+                                        <th>Transaction Id</th>
+                                        <th>Transaction</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,16 +39,19 @@ const PaymentHistory = () => {
                                         <tr key={payment._id}>
                                             <td>{index + 1}</td>
                                             <td>
-                                                <div className='flex items-center space-x-3'>
-                                                    <div className='avatar'>
-                                                        <div className='mask mask-squircle w-12 h-12'>
-                                                            <img src={payment.image} alt='Avatar Tailwind CSS Component' />
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {payment.name}
+                                                <br />
                                             </td>
                                             <td>
                                                 {payment.price}
+                                                <br />
+                                            </td>
+                                            <td className='text-green-500'>
+                                                {payment.transactionId}
+                                                <br />
+                                            </td>
+                                            <td className='text-green-500'>
+                                                Success
                                                 <br />
                                             </td>
                                         </tr>
