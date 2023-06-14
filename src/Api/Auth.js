@@ -14,7 +14,6 @@ export const saveUser = user => {
     })
     .then(res=> res.json())
     .then(data => {
-        console.log(data);
     })
 }
 
@@ -34,7 +33,7 @@ export const instructor = email => {
     })
     .then(res=> res.json())
     .then(data => {
-        console.log(data);
+       
     })
 }
 
