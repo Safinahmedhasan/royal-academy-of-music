@@ -17,7 +17,7 @@ const Payment = () => {
             {data._id} <br />
             {price}
             <Elements stripe={stripePromise}>
-                <CheckOutFrom price={data.price}></CheckOutFrom>
+                <CheckOutFrom data={data} price={data.price}></CheckOutFrom>
             </Elements>
         </div>
     );

@@ -4,10 +4,13 @@ import { AuthContext } from '../../providers/AuthProvider';
 import useAxiosSecure from '../../Hooks/UseCart/useAxiosSecure';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import UseCart from '../../Hooks/UseCart/UseCart';
 
 
 
-const CheckOutFrom = ({ price }) => {
+const CheckOutFrom = ({ price , data }) => {
+    const [cart, refetch] = UseCart();
+    console.log(cart);
 
     const stripe = useStripe();
     const elements = useElements();
@@ -83,6 +86,7 @@ const CheckOutFrom = ({ price }) => {
                 email: user?.email,
                 transactionId: paymentIntent.id,
                 price,
+                name: data.name
             }
 
             axios.post('http://localhost:5000/payments', payment)
@@ -131,9 +135,7 @@ const CheckOutFrom = ({ price }) => {
             {
                 cardError && <p className='text-red-500'>{cardError}</p>
             }
-            {
-                transactionId && <p className='text-green-500'>Transaction Complete with transactionId: {transactionId} </p>
-            }
+
         </>
     );
 };

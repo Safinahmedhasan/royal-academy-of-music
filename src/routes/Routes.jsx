@@ -16,6 +16,7 @@ import AllPopularInstructorSection from '../layouts/Popular/AllPopularInstructor
 import ErrorPage from '../component/ErrorPage/ErrorPage'
 import FeedBack from '../component/FeedBack/FeedBack'
 import Payment from '../component/Payment/Payment'
+import PaymentHistory from '../component/PaymentHistory/PaymentHistory'
 
 
 export const router = createBrowserRouter([
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
         path: '/dashboard/payment/:id',
         element: <Payment></Payment>,
         loader: ({ params }) => fetch(`http://localhost:5000/carts/${params.id}`)
+      },
+      {
+        path: '/dashboard/payment',
+        element: <PaymentHistory></PaymentHistory>
       }
     ]
   }
