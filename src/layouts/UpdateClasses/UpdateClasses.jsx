@@ -19,7 +19,7 @@ const UpdateClasses = () => {
             price: updatedPrice
         };
 
-        fetch(`http://localhost:5000/class/${_id}`, {
+        fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

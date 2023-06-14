@@ -11,7 +11,7 @@ const AdminInfo = () => {
 
     const [myClass, setMyClass] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/myClass/${user?.email}`)
+        fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/myClass/${user?.email}`)
             .then(res => res.json())
             .then(data => setMyClass(data))
     }, [])

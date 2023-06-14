@@ -30,7 +30,7 @@ const AllClassCard = () => {
             showLoaderOnConfirm: true,
             preConfirm: (input) => {
                 console.log(input);
-                fetch(`http://localhost:5000/class/deny/${user._id}`, {
+                fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/deny/${user._id}`, {
                     method: 'PATCH',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(input)

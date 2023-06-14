@@ -82,17 +82,17 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/updateclasses/:id',
         element: <UpdateClasses></UpdateClasses>,
-        loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
+        loader: ({ params }) => fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/${params.id}`)
       },
       {
         path: '/dashboard/feedback/:id',
         element: <FeedBack></FeedBack>,
-        loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
+        loader: ({ params }) => fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/${params.id}`)
       },
       {
         path: '/dashboard/payment/:id',
         element: <Payment></Payment>,
-        loader: ({ params }) => fetch(`http://localhost:5000/carts/${params.id}`)
+        loader: ({ params }) => fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/carts/${params.id}`)
       },
       {
         path: '/dashboard/payment',
