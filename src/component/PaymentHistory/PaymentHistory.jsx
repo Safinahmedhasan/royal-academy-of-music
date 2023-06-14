@@ -11,7 +11,7 @@ const PaymentHistory = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/payments/${user?.email}`)
+        fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/payments/${user?.email}`)
             .then(res => res.json())
             .then(data => setPay(data))
     }, [])

@@ -90,7 +90,7 @@ const CheckOutFrom = ({ price , data }) => {
                 image: data.image
             }
 
-            axios.post('http://localhost:5000/payments', payment)
+            axios.post('https://royel-music-academy-server-safinahmedhasan.vercel.app/payments', payment)
                 .then(res => {
                     console.log(res.data);
                     if (res.data.insertedId) {

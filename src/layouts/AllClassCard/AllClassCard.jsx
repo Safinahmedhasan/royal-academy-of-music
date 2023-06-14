@@ -10,7 +10,7 @@ const AllClassCard = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/class')
+        fetch('https://royel-music-academy-server-safinahmedhasan.vercel.app/class')
             .then(res => res.json())
             .then(data => {
                 setAllClass(data);
@@ -52,7 +52,7 @@ const AllClassCard = () => {
 
 
     const handleMakeDeny = user => {
-        fetch(`http://localhost:5000/class/deny/${user._id}`, {
+        fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/deny/${user._id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())
@@ -70,7 +70,7 @@ const AllClassCard = () => {
     }
 
     const handleMakeApprove = user => {
-        fetch(`http://localhost:5000/class/approve/${user._id}`, {
+        fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/approve/${user._id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())

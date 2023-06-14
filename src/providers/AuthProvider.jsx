@@ -70,7 +70,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser)
 
       // if(currentUser){
-      //   axios.post('http://localhost:5000/jwt', {email: currentUser.email})
+      //   axios.post('https://royel-music-academy-server-safinahmedhasan.vercel.app/jwt', {email: currentUser.email})
       //   .then(data => {
       //     localStorage.setItem('access-token', data.data.token)
       //   })
@@ -88,7 +88,7 @@ const AuthProvider = ({ children }) => {
 
   // useEffect(() => {
   //   if(user?.email){
-  //     fetch(`http://localhost:5000/users/${user?.email}`)
+  //     fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/users/${user?.email}`)
   //     .then(res => res.json())
   //     .then(data => {
   //       setRole(data.role);

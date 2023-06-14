@@ -12,7 +12,7 @@ const FeedBack = () => {
 
         const updatefeedback = { feedback: feedbackValue };
 
-        fetch(`http://localhost:5000/class/${feedback._id}`, {
+        fetch(`https://royel-music-academy-server-safinahmedhasan.vercel.app/class/${feedback._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
