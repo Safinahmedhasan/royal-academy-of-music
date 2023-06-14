@@ -17,6 +17,7 @@ import ErrorPage from '../component/ErrorPage/ErrorPage'
 import FeedBack from '../component/FeedBack/FeedBack'
 import Payment from '../component/Payment/Payment'
 import PaymentHistory from '../component/PaymentHistory/PaymentHistory'
+import MyEnrolledClass from '../component/MyEnrolledClass/MyEnrolledClass'
 
 
 export const router = createBrowserRouter([
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/payment',
         element: <PaymentHistory></PaymentHistory>
+      },
+      {
+        path: '/dashboard/myenroll',
+        element: <MyEnrolledClass></MyEnrolledClass>
       }
     ]
   }
