@@ -86,7 +86,8 @@ const CheckOutFrom = ({ price , data }) => {
                 email: user?.email,
                 transactionId: paymentIntent.id,
                 price,
-                name: data.name
+                name: data.name,
+                image: data.image
             }
 
             axios.post('http://localhost:5000/payments', payment)

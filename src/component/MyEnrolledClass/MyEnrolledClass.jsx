@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const MyEnrolledClass = () => {
@@ -26,9 +26,9 @@ const MyEnrolledClass = () => {
                                     <th>
                                         <p>#</p>
                                     </th>
+                                    <th>Image</th>
                                     <th>Class Name</th>
                                     <th>Price</th>
-                                    <th>Transaction Id</th>
                                     <th>Transaction</th>
                                 </tr>
                             </thead>
@@ -36,16 +36,17 @@ const MyEnrolledClass = () => {
                                 {pay.map((payment, index) => (
                                     <tr key={payment._id}>
                                         <td>{index + 1}</td>
+                                        <div className='avatar'>
+                                            <div className='mask mask-squircle w-12 h-12'>
+                                                <img src={payment.image} alt='Avatar Tailwind CSS Component' />
+                                            </div>
+                                        </div>
                                         <td>
                                             {payment.name}
                                             <br />
                                         </td>
                                         <td>
                                             {payment.price}
-                                            <br />
-                                        </td>
-                                        <td className='text-green-500'>
-                                            {payment.transactionId}
                                             <br />
                                         </td>
                                         <td className='text-green-500'>
