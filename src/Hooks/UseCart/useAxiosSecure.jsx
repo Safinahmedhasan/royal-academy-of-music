@@ -33,7 +33,7 @@ const useAxiosSecure = () => {
         );
     }, [logOut, navigate, axiosSecure]);
 
-    return axiosSecure;
+    return [axiosSecure];
 };
 
 export default useAxiosSecure;

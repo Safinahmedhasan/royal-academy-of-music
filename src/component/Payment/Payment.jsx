@@ -8,13 +8,16 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const Payment = () => {
     const data = useLoaderData();
+
+    const price = parseFloat(data.price)
     
 
     return (
         <div>
-            {data._id}
+            {data._id} <br />
+            {price}
             <Elements stripe={stripePromise}>
-                <CheckOutFrom></CheckOutFrom>
+                <CheckOutFrom price={data.price}></CheckOutFrom>
             </Elements>
         </div>
     );

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 // import Logo from '../Shared/Navbar/Logo'
 import { GrLogout } from 'react-icons/gr'
-import { FcSettings } from 'react-icons/fc'
+import { FcCandleSticks, FcFile, FcManager, FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
+import { RiAddFill, RiBankCardLine, RiDashboardFill, RiFileAddLine, RiSecurePaymentFill, RiSecurePaymentLine } from 'react-icons/ri'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 
@@ -99,7 +100,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>Dashboard</span>
+                                            <span className=' flex items-center mx-4 font-medium'><RiDashboardFill className='mr-2'></RiDashboardFill> Dashboard</span>
                                         </NavLink>
 
 
@@ -112,7 +113,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>Add a Class</span>
+                                            <span className='mx-4 flex items-center font-medium'><RiAddFill className='mr-2'></RiAddFill> Add a Class</span>
                                         </NavLink>
 
                                         <NavLink
@@ -124,7 +125,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>My Classes</span>
+                                            <span className='mx-4 font-medium flex items-center'><RiFileAddLine className='mr-2'></RiFileAddLine> My Classes</span>
                                         </NavLink>
 
 
@@ -225,7 +226,16 @@ const Sidebar = () => {
                                         {/* Menu Links */}
 
 
+                                        <NavLink
+                                            to='/dashboard'
+                                            className={({ }) =>
+                                                'flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700'
+                                            }
+                                        >
+                                            {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
+                                            <span className=' flex items-center mx-4 font-medium'><RiDashboardFill className='mr-2'></RiDashboardFill> Dashboard</span>
+                                        </NavLink>
 
                                         <NavLink
                                             to='myClasses'
@@ -236,7 +246,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>My Selected Classes</span>
+                                            <span className='mx-4 font-medium flex items-center'><FcFile className='mr-2'></FcFile> My Selected Classes</span>
                                         </NavLink>
 
                                         <NavLink
@@ -248,7 +258,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>My Enrolled Classes</span>
+                                            <span className='mx-4 font-medium flex items-center'><RiBankCardLine className='mr-2'></RiBankCardLine> My Enrolled Classes</span>
                                         </NavLink>
 
 
@@ -261,7 +271,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>Payment History</span>
+                                            <span className='mx-4 font-medium flex items-center'><RiSecurePaymentLine className='mr-2'></RiSecurePaymentLine> Payment History</span>
                                         </NavLink>
                                     </>
                                 </nav>
@@ -356,7 +366,16 @@ const Sidebar = () => {
                                         {/* Menu Links */}
 
 
+                                        <NavLink
+                                            to='/dashboard'
+                                            className={({ }) =>
+                                                'flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700'
+                                            }
+                                        >
+                                            {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
+                                            <span className=' flex items-center mx-4 font-medium'><RiDashboardFill className='mr-2'></RiDashboardFill> Dashboard</span>
+                                        </NavLink>
 
                                         <NavLink
                                             to='allStudent'
@@ -367,7 +386,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>Manage Student</span>
+                                            <span className='mx-4 font-medium flex items-center'><FcManager className='mr-2'></FcManager> Manage Student</span>
                                         </NavLink>
 
 
@@ -380,7 +399,7 @@ const Sidebar = () => {
                                         >
                                             {/* <BsFillHouseAddFill className='w-5 h-5' /> */}
 
-                                            <span className='mx-4 font-medium'>Manage Classes</span>
+                                            <span className='mx-4 font-medium flex items-center'><FcCandleSticks className='mr-2'></FcCandleSticks> Manage Classes</span>
                                         </NavLink>
                                     </>
                                 </nav>
